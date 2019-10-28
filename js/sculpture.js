@@ -2,14 +2,15 @@ var phi = (1+5**-0.5)/2;
 
 //TODO set vertices offset to make geometry irregular
 
-function createIcosahedron(){
+function createIcosahedron(x, y, z){
 	'use strict';
 
 	var material = new THREE.MeshBasicMaterial({color: 0x0000ff, wireframe: true});
 	var geometry = new THREE.Geometry();
+  //TODO 3 different mesh types and not just 1
 	var mesh, icosahedron = new THREE.Object3D();
 
-	geometry.vertices.push(
+	geometry.vertices.push(  //ordered 0 to 11 by order of insertion
 		new THREE.Vector3( 0,  1, phi),
 		new THREE.Vector3( 0, 1, -phi),
 		new THREE.Vector3( 0, -1, phi),
@@ -24,7 +25,7 @@ function createIcosahedron(){
 		new THREE.Vector3( -1, -phi, 0)
 	);
 
-	geometry.faces.push(
+	geometry.faces.push(  //all faces added individually (HELP: plot vertices online in order above and connect vertices)
 		new THREE.Face3( 0, 1, 8),
 		new THREE.Face3( 0, 10, 1),
 		new THREE.Face3( 0, 8, 4),
@@ -51,5 +52,23 @@ function createIcosahedron(){
 	icosahedron.add(mesh);
 	scene.add(icosahedron);
 
+  icosahedron.position.set(x,y,z);
+
 	return icosahedron;
+}
+
+function createBase(x, y, z){
+  'use strict';
+
+  var base = new THREE.Object3D();
+  var geometry = new THREE.CylinderGeometry(1.5, 1.5, 3, 16);
+  var material = new THREE.MeshBasicMaterial({color: 0xffffff, wireframe: true});
+  //TODO 3 different mesh types and not just 1
+  var mesh = new THREE.Mesh(geometry, material);
+
+  base.add(mesh);
+  scene.add(base);
+  mesh.position.set(x, y, z);
+
+  return base;
 }

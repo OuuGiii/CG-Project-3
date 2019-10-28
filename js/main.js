@@ -29,7 +29,8 @@ function onResize() {
 function createScene() {
 	'use strict';
 	scene = new THREE.Scene();
-	createIcosahedron();
+	createRoom();
+	createIcosahedron(0, 2.5, 0); //2.5 eyeballed, should calculate actual coordinate
 }
 
 function render() {

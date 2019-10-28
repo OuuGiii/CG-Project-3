@@ -13,7 +13,7 @@ function createFixedPerspectiveCamera() {
 	let far = 1000;
 
 	var camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-	camera.position.set(10, 10, 10);
+	camera.position.set(20, 20, 40);
 	camera.lookAt(scene.position);
 
 	return camera;
