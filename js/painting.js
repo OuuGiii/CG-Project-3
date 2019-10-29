@@ -54,11 +54,11 @@ function createPicture() {
 function createPictureBackground(picture) {
 	var background = new THREE.Object3D();
 
-	var geometry = new THREE.PlaneGeometry(picture.width, picture.height);
+	var geometry = new THREE.BoxGeometry(picture.width, picture.height, 0.049);
 	var material = new THREE.MeshBasicMaterial({ color: 0x000000, wireframe: false });
-	var plane = new THREE.Mesh(geometry, material);
+	var box = new THREE.Mesh(geometry, material);
 
-	background.add(plane);
+	background.add(box);
 
 	picture.add(background);
 
@@ -85,7 +85,7 @@ function createPictureDots(picture) {
 function createPictureDot(picture, pictureDots, x, y) {
 	var dot = new THREE.Object3D();
 
-	var geometry = new THREE.CylinderGeometry(0.15, 0.15, 0.1);
+	var geometry = new THREE.CylinderGeometry(0.15, 0.15, 0.05);
 	var material = new THREE.MeshBasicMaterial({ color: 0xffffff });
 	var cylinder = new THREE.Mesh(geometry, material);
 
@@ -120,7 +120,7 @@ function createPictureLines(picture) {
 function createHorizontalPictureLine(picture, pictureLines, y) {
 	var line = new THREE.Object3D();
 
-	var geometry = new THREE.BoxGeometry(8, 0.185, 0.05);
+	var geometry = new THREE.BoxGeometry(8, 0.185, 0.0495);
 	var material = new THREE.MeshBasicMaterial({ color: 0x808080 });
 	var cube = new THREE.Mesh(geometry, material);
 
@@ -135,7 +135,7 @@ function createHorizontalPictureLine(picture, pictureLines, y) {
 function createVerticalPictureLine(picture, pictureLines, x) {
 	var line = new THREE.Object3D();
 
-	var geometry = new THREE.BoxGeometry(0.185, 5, 0.05);
+	var geometry = new THREE.BoxGeometry(0.185, 5, 0.0495);
 	var material = new THREE.MeshBasicMaterial({ color: 0x808080 });
 	var cube = new THREE.Mesh(geometry, material);
 
