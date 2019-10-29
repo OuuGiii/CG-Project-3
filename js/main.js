@@ -13,6 +13,8 @@ var spotLights = {
 	spotLight4: null
 };
 
+var directionalLight = null;
+
 var materials = {
 	material1: new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: false }),
 	material2: new THREE.MeshPhongMaterial({ color: 0xffffff, wireframe: false }),
@@ -38,7 +40,13 @@ function onKeyPress(e) {
 		case 51: //3
 			spotLights.spotLight3.turnTheSwitch();
 			break;
-
+		case 113: //q
+			directionalLight.turnTheSwitch();
+			break;
+		case 119: //w - TODO: activate/deactivate lighting calculation
+			break;
+		case 101: //e - TODO: change shadow type
+			break;
 		// TODO ADD MATERIAL CHANGE
 		// case 52: //4
 		// 	spotLights.spotLight4.turnTheSwitch();
@@ -66,6 +74,13 @@ function onResize() {
 	scene.activeCamera.aspect = window.innerWidth / window.innerHeight;
 	scene.activeCamera.updateProjectionMatrix();
 }
+
+/*function changeShadowType() {
+	'use strict';
+	scene.room.changeRoomMaterial();
+	scene.painting.changePaintingMaterial();
+	scene.sculpture.changeSculptureMaterial();
+}*/
 
 function createScene() {
 	'use strict';
@@ -115,6 +130,7 @@ function init() {
 
 	createScene();
 	createSpotLights();
+	directionalLight = createDirectionalLight(0, 0, 10);
 	scene.activeCamera = createFixedPerspectiveCamera();
 	render();
 
