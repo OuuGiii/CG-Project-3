@@ -16,11 +16,11 @@ The tasks for the Third Job are:
 - Defining a still camera with a view of the scene using a perspective projection that shows the entire scene using the '5' key as well as a still camera, activated using the '6' key, which is centered and points over the painting using a projection. orthogonal to visualize the desired optical illusion. [0.5 points] 
 
 ### Important notes
-Note 1: In addition to the update and display events, there is another set of events, such as pressed or released keys, timers and window resizing. We strongly suggest that such events be handled independently by their callback functions. In this Work # 3 we will require the correct implementation of window resizing events for both types of projections.
-Note 2: Finally, students should adopt object-oriented programming, always following good programming practices that allow reuse of code in later deliveries and facilitate scalability.
-Note 3: Cannot use modeling tools. The meshes must be modeled manually.
+- Note 1: In addition to the update and display events, there is another set of events, such as pressed or released keys, timers and window resizing. We strongly suggest that such events be handled independently by their callback functions. In this Work # 3 we will require the correct implementation of window resizing events for both types of projections.
+- Note 2: Finally, students should adopt object-oriented programming, always following good programming practices that allow reuse of code in later deliveries and facilitate scalability.
+- Note 3: Cannot use modeling tools. The meshes must be modeled manually.
 
 ### Suggestions
-Before defining the scene materials, we suggest that you begin by experimenting with a simple object and material so that you can test and understand the various parameters individually.
-For good lighting results on large surfaces, they should be subdivided into smaller polygons.
-From three.js.r69 on, to orient a spotlight light source (or any other kind of orientable light) to a point is not enough to assign Light.target.position the coordinates of that point. You must first include Light.target in the scene (for example, scene.add (mySpot.target);) or apply Light.target the updateMatrixWorld function every time you change the position of the point to
+- Before defining the scene materials, we suggest that you begin by experimenting with a simple object and material so that you can test and understand the various parameters individually.
+- For good lighting results on large surfaces, they should be subdivided into smaller polygons.
+- From three.js.r69 on, to orient a spotlight light source (or any other kind of orientable light) to a point is not enough to assign Light.target.position the coordinates of that point. You must first include Light.target in the scene (for example, scene.add (mySpot.target);) or apply Light.target the updateMatrixWorld function every time you change the position of the point to
