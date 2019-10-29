@@ -1,24 +1,34 @@
 function createPainting(x, y, z) {
 	var painting = new THREE.Object3D();
 
-	painting.frame = createFrame();
-	painting.picture = createPicture();
+	painting.width = 15;
+	painting.height = 7;
 
-	painting.add(painting.frame);
-	painting.add(painting.picture);
+	painting.frame = createFrame(painting);
+	painting.picture = createPicture(painting);
 
 	painting.position.set(x, y, z);
 
 	scene.add(painting);
 }
 
-function createFrame() {
+function createFrame(painting) {
 	var frame = new THREE.Object3D();
 
-	frame.left = createFramePart(frame, 0.5, 6, 0.1, -4.25, 0, 0);
-	frame.right = createFramePart(frame, 0.5, 6, 0.1, 4.25, 0, 0);
-	frame.top = createFramePart(frame, 8, 0.5, 0.1, 0, 2.75, 0);
-	frame.bottom = createFramePart(frame, 8, 0.5, 0.1, 0, -2.75, 0);
+	frame.widthOfFramePart = 0.5;
+	frame.depthOfFramePart = 0.1;
+
+	var positionOfLeftFramePart = 0 - (painting.width - frame.widthOfFramePart) / 2;
+	var positionOfRightFramePart = 0 + (painting.width - frame.widthOfFramePart) / 2;
+	var positionOfTopFramePart = 0 + (painting.height - frame.widthOfFramePart) / 2;
+	var positionOfBottomFramePart = 0 - (painting.height - frame.widthOfFramePart) / 2;
+
+	frame.left = createFramePart(frame, frame.widthOfFramePart, painting.height, frame.depthOfFramePart, positionOfLeftFramePart, 0, 0);
+	frame.right = createFramePart(frame, frame.widthOfFramePart, painting.height, frame.depthOfFramePart, positionOfRightFramePart, 0, 0);
+	frame.top = createFramePart(frame, painting.width, frame.widthOfFramePart, frame.depthOfFramePart, 0, positionOfTopFramePart, 0);
+	frame.bottom = createFramePart(frame, painting.width, frame.widthOfFramePart, frame.depthOfFramePart, 0, positionOfBottomFramePart, 0);
+
+	painting.add(frame);
 
 	return frame;
 }
@@ -38,15 +48,17 @@ function createFramePart(frame, width, height, depth, x, y, z) {
 	return framePart;
 }
 
-function createPicture() {
+function createPicture(painting) {
 	var picture = new THREE.Object3D();
 
-	picture.width = 8;
-	picture.height = 5;
+	picture.width = painting.width - 2 * painting.frame.widthOfFramePart;
+	picture.height = painting.height - 2 * painting.frame.widthOfFramePart;
 
 	picture.background = createPictureBackground(picture);
 	picture.dots = createPictureDots(picture);
 	picture.lines = createPictureLines(picture);
+
+	painting.add(picture);
 
 	return picture;
 }
@@ -120,7 +132,7 @@ function createPictureLines(picture) {
 function createHorizontalPictureLine(picture, pictureLines, y) {
 	var line = new THREE.Object3D();
 
-	var geometry = new THREE.BoxGeometry(8, 0.185, 0.0495);
+	var geometry = new THREE.BoxGeometry(picture.width, 0.185, 0.0495);
 	var material = new THREE.MeshBasicMaterial({ color: 0x808080 });
 	var cube = new THREE.Mesh(geometry, material);
 
@@ -135,7 +147,7 @@ function createHorizontalPictureLine(picture, pictureLines, y) {
 function createVerticalPictureLine(picture, pictureLines, x) {
 	var line = new THREE.Object3D();
 
-	var geometry = new THREE.BoxGeometry(0.185, 5, 0.0495);
+	var geometry = new THREE.BoxGeometry(0.185, picture.height, 0.0495);
 	var material = new THREE.MeshBasicMaterial({ color: 0x808080 });
 	var cube = new THREE.Mesh(geometry, material);
 
