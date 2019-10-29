@@ -1,4 +1,5 @@
 function createPainting(x, y, z) {
+	'use strict';
 	var painting = new THREE.Object3D();
 
 	painting.width = 15;
@@ -10,9 +11,12 @@ function createPainting(x, y, z) {
 	painting.position.set(x, y, z);
 
 	scene.add(painting);
+
+	return painting;
 }
 
 function createFrame(painting) {
+	'use strict';
 	var frame = new THREE.Object3D();
 
 	frame.widthOfFramePart = 0.5;
@@ -34,6 +38,7 @@ function createFrame(painting) {
 }
 
 function createFramePart(frame, width, height, depth, x, y, z) {
+	'use strict';
 	var framePart = new THREE.Object3D();
 
 	var material = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true });
@@ -49,6 +54,7 @@ function createFramePart(frame, width, height, depth, x, y, z) {
 }
 
 function createPicture(painting) {
+	'use strict';
 	var picture = new THREE.Object3D();
 
 	picture.width = painting.width - 2 * painting.frame.widthOfFramePart;
@@ -64,6 +70,7 @@ function createPicture(painting) {
 }
 
 function createPictureBackground(picture) {
+	'use strict';
 	var background = new THREE.Object3D();
 
 	var geometry = new THREE.BoxGeometry(picture.width, picture.height, 0.049);
@@ -78,6 +85,7 @@ function createPictureBackground(picture) {
 }
 
 function createPictureDots(picture) {
+	'use strict';
 	var leftRange = 0 - (picture.width - 1) / 2;
 	var rightRange = 0 + (picture.width - 1) / 2;
 	var topRange = 0 + (picture.height - 1) / 2;
@@ -95,6 +103,7 @@ function createPictureDots(picture) {
 }
 
 function createPictureDot(picture, pictureDots, x, y) {
+	'use strict';
 	var dot = new THREE.Object3D();
 
 	var geometry = new THREE.CylinderGeometry(0.15, 0.15, 0.05);
@@ -112,6 +121,7 @@ function createPictureDot(picture, pictureDots, x, y) {
 }
 
 function createPictureLines(picture) {
+	'use strict';
 	var leftRange = 0 - (picture.width - 1) / 2;
 	var rightRange = 0 + (picture.width - 1) / 2;
 	var topRange = 0 + (picture.height - 1) / 2;
@@ -130,6 +140,7 @@ function createPictureLines(picture) {
 }
 
 function createHorizontalPictureLine(picture, pictureLines, y) {
+	'use strict';
 	var line = new THREE.Object3D();
 
 	var geometry = new THREE.BoxGeometry(picture.width, 0.185, 0.0495);
@@ -145,6 +156,7 @@ function createHorizontalPictureLine(picture, pictureLines, y) {
 }
 
 function createVerticalPictureLine(picture, pictureLines, x) {
+	'use strict';
 	var line = new THREE.Object3D();
 
 	var geometry = new THREE.BoxGeometry(0.185, picture.height, 0.0495);
