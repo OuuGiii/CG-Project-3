@@ -1,5 +1,4 @@
-var scene,
-	renderer;
+var scene, renderer;
 
 var cameras = {};
 
@@ -31,6 +30,7 @@ function createScene() {
 	scene = new THREE.Scene();
 	createRoom();
 	createIcosahedron(0, 2.5, 0); //2.5 eyeballed, should calculate actual coordinate
+	createPainting(0, 5, -9.45);
 }
 
 function render() {
