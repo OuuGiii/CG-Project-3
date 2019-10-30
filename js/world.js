@@ -12,6 +12,7 @@ function createRoom() {
 	room.add(room.base);
 
 	scene.add(room);
+	return room;
 }
 
 function createFence() {
@@ -45,7 +46,7 @@ function createFloor(x, y, z) {
 function createWall(fence, rotation, x, y, z) {
 	'use strict';
 
-	var material = new THREE.MeshBasicMaterial({ color: 0x8CD3EE, wireframe: false });
+	var material = new THREE.MeshBasicMaterial({ color: 0x8cd3ee, wireframe: false });
 	var geometry = new THREE.CubeGeometry(1, 10, 20);
 	var mesh = new THREE.Mesh(geometry, material);
 
@@ -53,3 +54,40 @@ function createWall(fence, rotation, x, y, z) {
 	mesh.rotation.y = rotation;
 	fence.add(mesh);
 }
+
+/*room.changeMaterialBasic = function() {
+		'use strict';
+		//change base material
+		this.base.material = this.base.materials[0];
+	
+		//change floor material
+		this.floor.material = new THREE.MeshBasicMaterial({ color: 0x845938, wireframe: false });
+	
+		//change fence material
+		this.fence.material = new THREE.MeshBasicMaterial({ color: 0x8CD3EE, wireframe: false });
+	};
+	
+	room.changeMaterialLambert = function() {
+		'use strict';
+		//change base material
+		this.base.material = this.base.materials[1];
+	
+		//change floor material
+		this.floor.material = new THREE.MeshLambertMaterial({ color: 0x845938, wireframe: false });
+	
+		//change fence material
+		this.fence.material = new THREE.MeshLambertMaterial({ color: 0x8CD3EE, wireframe: false });
+	};
+	
+	room.changeMaterialPhong = function() {
+		'use strict';
+		//change base material
+		this.base.material = this.base.materials[2];
+	
+		//change floor material
+		this.floor.material = new THREE.MeshPhongMaterial({ color: 0x845938, wireframe: false });
+	
+		//change fence material
+		this.fence.material = new THREE.MeshPhongMaterial({ color: 0x8CD3EE, wireframe: false });
+	};
+*/

@@ -5,7 +5,11 @@ var scene = {
 };
 var renderer;
 
-var cameras = {};
+var cameras = {
+	perspectiveCamera: null,
+	orthographicCamera: null
+};
+
 var spotLights = {
 	spotLight1: null,
 	spotLight2: null,
@@ -30,6 +34,8 @@ var MATERIAL_TYPE = 0;
 
 var clock = new THREE.Clock();
 var delta = 0;
+
+//var ind = 0; //indicates the material type
 
 function onKeyDown(e) {
 	'use strict';
@@ -61,25 +67,32 @@ function onKeyPress(e) {
 			break;
 		case 52: //4
 			spotLights.spotLight4.turnTheSwitch();
+		case 53: //5
+			scene.activeCamera = cameras.perspectiveCamera;
+			break;
+		case 54: //6
+			scene.activeCamera = cameras.orthographicCamera;
 			break;
 		case 113: //q
 			directionalLight.turnTheSwitch();
 			break;
 		case 119: //w - TODO: activate/deactivate lighting calculation
+			/*if (ind == 0) {
+				scene.room.changeMaterialLambert();
+				scene.painting.changeMaterialLambert();
+				scene.sculpture.changeMaterialLambert();
+				ind = 1;
+			}
+			else {
+				scene.room.changeMaterialBasic();
+				scene.painting.changeMaterialBasic();
+				scene.sculpture.changeMaterialBasic();
+				ind = 0;
+			}*/
 			break;
 		case 101: //e - TODO: change shadow type
 			changeShadowType();
 			break;
-		// TODO ADD MATERIAL CHANGE
-		// case 50: //2
-		// 	spotLights.spotLight2.turnTheSwitch();
-		// 	break;
-		// case 51: //3
-		// 	spotLights.spotLight3.turnTheSwitch();
-		// 	break;
-		// case 52: //4
-		// 	spotLights.spotLight4.turnTheSwitch();
-		// 	break;
 	}
 }
 
@@ -158,10 +171,12 @@ function init() {
 
 	createScene();
 	createSpotLights();
-	// directionalLight = createDirectionalLight(0, 0, 10);
-	// directionalLight.target = scene.room.floor;
-	// directionalLight.position.set(0, 20, 0);
-	scene.activeCamera = createFixedPerspectiveCamera();
+	directionalLight = createDirectionalLight(0, 0, 10);
+	directionalLight.target = scene.room.floor;
+	directionalLight.position.set(0, 20, 0);
+	cameras.orthographicCamera = createFixedOrthographicCamera();
+	cameras.perspectiveCamera = createFixedPerspectiveCamera();
+	scene.activeCamera = cameras.perspectiveCamera;
 	render();
 
 	window.addEventListener('resize', onResize);

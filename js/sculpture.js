@@ -91,3 +91,17 @@ function sculptureMovement(icosahedron){
 	if(icosahedron.rotating)
 		icosahedron.rotation.y -= 0.1;
 }
+
+/*
+icosahedron.changeMaterialBasic = function() {
+	//TODO: change icosaedron material
+}
+
+icosahedron.changeMaterialLambert = function() {
+	//TODO: change icosaedron material
+}
+
+icosahedron.changeMaterialPhong = function() {
+	//TODO: change icosaedron material
+}
+*/
