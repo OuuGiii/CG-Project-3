@@ -16,10 +16,17 @@ var spotLights = {
 var directionalLight = null;
 
 var materials = {
-	material1: new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: false }),
-	material2: new THREE.MeshPhongMaterial({ color: 0xffffff, wireframe: false }),
-	material3: new THREE.MeshLambertMaterial({ color: 0xffffff, wireframe: false })
+	material1: 'Basic',
+	material2: 'Lambert',
+	material3: 'Phong'
 };
+
+/*
+ * 0 = basic
+ * 1 = lambert
+ * 2 = phong
+ */
+var MATERIAL_TYPE = 0;
 
 var clock = new THREE.Clock();
 var delta = 0;
@@ -36,6 +43,13 @@ function onKeyDown(e) {
 function onKeyPress(e) {
 	'use strict';
 	switch (e.keyCode) {
+		case 48: //0
+			scene.traverse(function(node) {
+				if (node instanceof THREE.Mesh) {
+					node.material.wireframe = !node.material.wireframe;
+				}
+			});
+			break;
 		case 49: //1
 			spotLights.spotLight1.turnTheSwitch();
 			break;
@@ -45,24 +59,18 @@ function onKeyPress(e) {
 		case 51: //3
 			spotLights.spotLight3.turnTheSwitch();
 			break;
+		case 52: //4
+			spotLights.spotLight4.turnTheSwitch();
+			break;
 		case 113: //q
 			directionalLight.turnTheSwitch();
 			break;
 		case 119: //w - TODO: activate/deactivate lighting calculation
 			break;
 		case 101: //e - TODO: change shadow type
-			break;
-		case 48:
-			scene.traverse(function (node) {
-				if (node instanceof THREE.Mesh) {
-					node.material.wireframe = !node.material.wireframe;
-				}
-			});
+			changeShadowType();
 			break;
 		// TODO ADD MATERIAL CHANGE
-		// case 52: //4
-		// 	spotLights.spotLight4.turnTheSwitch();
-		// 	break;
 		// case 50: //2
 		// 	spotLights.spotLight2.turnTheSwitch();
 		// 	break;
@@ -92,18 +100,21 @@ function onResize() {
 	scene.activeCamera.updateProjectionMatrix();
 }
 
-/*function changeShadowType() {
+function changeShadowType() {
 	'use strict';
-	scene.room.changeRoomMaterial();
-	scene.painting.changePaintingMaterial();
-	scene.sculpture.changeSculptureMaterial();
-}*/
+
+	if (MATERIAL_TYPE > 2) MATERIAL_TYPE = 0;
+	//scene.room.changeRoomMaterial(MATERIAL_TYPE);
+	scene.painting.changeMaterial(MATERIAL_TYPE);
+	//scene.sculpture.changeSculptureMaterial(MATERIAL_TYPE);
+	MATERIAL_TYPE++;
+}
 
 function createScene() {
 	'use strict';
 	scene = new THREE.Scene();
 	scene.room = createRoom();
-	scene.sculpture = createIcosahedron(0, 3.5, 0); 
+	scene.sculpture = createIcosahedron(0, 3.5, 0);
 	scene.painting = createPainting(0, 5, -9.45);
 }
 
@@ -147,7 +158,9 @@ function init() {
 
 	createScene();
 	createSpotLights();
-	directionalLight = createDirectionalLight(0, 0, 10);
+	// directionalLight = createDirectionalLight(0, 0, 10);
+	// directionalLight.target = scene.room.floor;
+	// directionalLight.position.set(0, 20, 0);
 	scene.activeCamera = createFixedPerspectiveCamera();
 	render();
 

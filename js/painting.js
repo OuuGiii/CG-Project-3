@@ -1,3 +1,35 @@
+var COLORS = {
+	BROWN: 0x845938,
+	BLACK: 0x000000,
+	WHITE: 0xffffff,
+	GRAY: 0x808080
+};
+
+var PAINTING_MATERIAL = {
+	FRAME: {
+		BASIC: new THREE.MeshBasicMaterial({ color: COLORS.BROWN, wireframe: false }),
+		LAMBERT: new THREE.MeshPhongMaterial({ color: COLORS.BROWN, wireframe: false }),
+		PHONG: new THREE.MeshLambertMaterial({ color: COLORS.BROWN, wireframe: false })
+	},
+	PICTURE: {
+		BACKGROUND: {
+			BASIC: new THREE.MeshBasicMaterial({ color: COLORS.BLACK, wireframe: false }),
+			LAMBERT: new THREE.MeshPhongMaterial({ color: COLORS.BLACK, wireframe: false }),
+			PHONG: new THREE.MeshLambertMaterial({ color: COLORS.BLACK, wireframe: false })
+		},
+		DOTS: {
+			BASIC: new THREE.MeshBasicMaterial({ color: COLORS.WHITE, wireframe: false }),
+			LAMBERT: new THREE.MeshPhongMaterial({ color: COLORS.WHITE, wireframe: false }),
+			PHONG: new THREE.MeshLambertMaterial({ color: COLORS.WHITE, wireframe: false })
+		},
+		LINES: {
+			BASIC: new THREE.MeshBasicMaterial({ color: COLORS.GRAY, wireframe: false }),
+			LAMBERT: new THREE.MeshPhongMaterial({ color: COLORS.GRAY, wireframe: false }),
+			PHONG: new THREE.MeshLambertMaterial({ color: COLORS.GRAY, wireframe: false })
+		}
+	}
+};
+
 function createPainting(x, y, z) {
 	'use strict';
 	var painting = new THREE.Object3D();
@@ -7,6 +39,29 @@ function createPainting(x, y, z) {
 
 	painting.frame = createFrame(painting);
 	painting.picture = createPicture(painting);
+
+	painting.changeMaterial = function(material_type) {
+		var frame_material = getCorrectMaterial(PAINTING_MATERIAL.FRAME, material_type);
+		var background_material = getCorrectMaterial(PAINTING_MATERIAL.PICTURE.BACKGROUND, material_type);
+		var dot_material = getCorrectMaterial(PAINTING_MATERIAL.PICTURE.DOTS, material_type);
+		var line_material = getCorrectMaterial(PAINTING_MATERIAL.PICTURE.LINES, material_type);
+
+		this.frame.left.material = frame_material;
+		this.frame.right.material = frame_material;
+		this.frame.top.material = frame_material;
+		this.frame.bottom.material = frame_material;
+
+		this.picture.background.material = background_material;
+
+		for (var dot of this.picture.dots) {
+			dot.material = dot_material;
+		}
+
+		for (var line of this.picture.lines) {
+			line.material = line_material;
+		}
+		console.log('Changed painting material');
+	};
 
 	painting.position.set(x, y, z);
 
@@ -39,13 +94,10 @@ function createFrame(painting) {
 
 function createFramePart(frame, width, height, depth, x, y, z) {
 	'use strict';
-	var framePart = new THREE.Object3D();
-
-	var material = new THREE.MeshBasicMaterial({ color: 0x845938, wireframe: false });
+	var material = new THREE.MeshBasicMaterial({ color: COLORS.BROWN, wireframe: false });
 	var geometry = new THREE.CubeGeometry(width, height, depth);
-	var mesh = new THREE.Mesh(geometry, material);
+	var framePart = new THREE.Mesh(geometry, material);
 
-	framePart.add(mesh);
 	framePart.position.set(x, y, z);
 
 	frame.add(framePart);
@@ -71,13 +123,9 @@ function createPicture(painting) {
 
 function createPictureBackground(picture) {
 	'use strict';
-	var background = new THREE.Object3D();
-
 	var geometry = new THREE.BoxGeometry(picture.width, picture.height, 0.049);
-	var material = new THREE.MeshBasicMaterial({ color: 0x000000, wireframe: false });
-	var box = new THREE.Mesh(geometry, material);
-
-	background.add(box);
+	var material = new THREE.MeshBasicMaterial({ color: COLORS.BLACK, wireframe: false });
+	var background = new THREE.Mesh(geometry, material);
 
 	picture.add(background);
 
@@ -104,15 +152,11 @@ function createPictureDots(picture) {
 
 function createPictureDot(picture, pictureDots, x, y) {
 	'use strict';
-	var dot = new THREE.Object3D();
-
 	var geometry = new THREE.CylinderGeometry(0.15, 0.15, 0.05);
-	var material = new THREE.MeshBasicMaterial({ color: 0xffffff });
-	var cylinder = new THREE.Mesh(geometry, material);
+	var material = new THREE.MeshBasicMaterial({ color: COLORS.WHITE });
+	var dot = new THREE.Mesh(geometry, material);
 
-	cylinder.rotation.x = Math.PI / 2;
-
-	dot.add(cylinder);
+	dot.rotation.x = Math.PI / 2;
 	dot.position.set(x, y, 0);
 
 	picture.add(dot);
@@ -141,13 +185,10 @@ function createPictureLines(picture) {
 
 function createHorizontalPictureLine(picture, pictureLines, y) {
 	'use strict';
-	var line = new THREE.Object3D();
-
 	var geometry = new THREE.BoxGeometry(picture.width, 0.185, 0.0495);
-	var material = new THREE.MeshBasicMaterial({ color: 0x808080 });
-	var cube = new THREE.Mesh(geometry, material);
+	var material = new THREE.MeshBasicMaterial({ color: COLORS.GRAY });
+	var line = new THREE.Mesh(geometry, material);
 
-	line.add(cube);
 	line.position.set(0, y, 0);
 
 	picture.add(line);
@@ -157,16 +198,18 @@ function createHorizontalPictureLine(picture, pictureLines, y) {
 
 function createVerticalPictureLine(picture, pictureLines, x) {
 	'use strict';
-	var line = new THREE.Object3D();
-
 	var geometry = new THREE.BoxGeometry(0.185, picture.height, 0.0495);
-	var material = new THREE.MeshBasicMaterial({ color: 0x808080 });
-	var cube = new THREE.Mesh(geometry, material);
+	var material = new THREE.MeshBasicMaterial({ color: COLORS.GRAY });
+	var line = new THREE.Mesh(geometry, material);
 
-	line.add(cube);
 	line.position.set(x, 0, 0);
 
 	picture.add(line);
 
 	pictureLines.push(line);
+}
+
+function getCorrectMaterial(materials, material_index) {
+	var correct_material = Object.keys(materials)[material_index];
+	return materials[correct_material];
 }
