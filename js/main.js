@@ -5,7 +5,11 @@ var scene = {
 };
 var renderer;
 
-var cameras = {};
+var cameras = {
+	perspectiveCamera: null,
+	orthographicCamera: null
+};
+
 var spotLights = {
 	spotLight1: null,
 	spotLight2: null,
@@ -46,6 +50,12 @@ function onKeyPress(e) {
 			break;
 		case 51: //3
 			spotLights.spotLight3.turnTheSwitch();
+			break;
+		case 53: //5
+			scene.activeCamera = cameras.perspectiveCamera;
+			break;
+		case 54: //6
+			scene.activeCamera = cameras.orthographicCamera;
 			break;
 		case 113: //q
 			directionalLight.turnTheSwitch();
@@ -164,7 +174,9 @@ function init() {
 	createScene();
 	createSpotLights();
 	directionalLight = createDirectionalLight(0, 0, 10);
-	scene.activeCamera = createFixedPerspectiveCamera();
+	cameras.orthographicCamera = createFixedOrthographicCamera();
+	cameras.perspectiveCamera = createFixedPerspectiveCamera();
+	scene.activeCamera = cameras.perspectiveCamera;
 	render();
 
 	window.addEventListener('resize', onResize);

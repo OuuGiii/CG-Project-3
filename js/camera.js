@@ -18,3 +18,19 @@ function createFixedPerspectiveCamera() {
 
 	return camera;
 }
+
+function createFixedOrthographicCamera() {
+	'use strict';
+	let left = window.innerWidth / -80;
+	let right = window.innerWidth / 80;
+	let top = window.innerHeight / 80;
+	let bottom = window.innerHeight / -80;
+	let near = 1;
+	let far = 10;
+
+	var camera = new THREE.OrthographicCamera( left, right, top, bottom, near, far );
+	camera.position.set(0, 5, -5);
+	camera.lookAt(scene.painting.position);
+
+	return camera;
+}
