@@ -30,7 +30,12 @@ var materials = {
  * 1 = lambert
  * 2 = phong
  */
-var MATERIAL_TYPE = 0;
+var MATERIAL_TYPE = {
+	ACTIVE: 0,
+	BASIC: 0,
+	LAMBERT: 1,
+	PHONG: 2
+};
 
 var clock = new THREE.Clock();
 var delta = 0;
@@ -77,18 +82,7 @@ function onKeyPress(e) {
 			directionalLight.turnTheSwitch();
 			break;
 		case 119: //w - TODO: activate/deactivate lighting calculation
-			/*if (ind == 0) {
-				scene.room.changeMaterialLambert();
-				scene.painting.changeMaterialLambert();
-				scene.sculpture.changeMaterialLambert();
-				ind = 1;
-			}
-			else {
-				scene.room.changeMaterialBasic();
-				scene.painting.changeMaterialBasic();
-				scene.sculpture.changeMaterialBasic();
-				ind = 0;
-			}*/
+			toggleLightingCalculation();
 			break;
 		case 101: //e - TODO: change shadow type
 			changeShadowType();
@@ -113,14 +107,40 @@ function onResize() {
 	scene.activeCamera.updateProjectionMatrix();
 }
 
+function toggleLightingCalculation() {
+	'use strict';
+
+	if (MATERIAL_TYPE.ACTIVE === MATERIAL_TYPE.LAMBERT || MATERIAL_TYPE.ACTIVE === MATERIAL_TYPE.PHONG) {
+		//scene.room.changeRoomMaterial(MATERIAL_TYPE.BASIC);
+		scene.painting.changeMaterial(MATERIAL_TYPE.BASIC);
+		//scene.sculpture.changeSculptureMaterial(MATERIAL_TYPE.BASIC);
+		MATERIAL_TYPE.ACTIVE = MATERIAL_TYPE.BASIC;
+		console.log('Turned lightning calculations OFF');
+	} else if (MATERIAL_TYPE.ACTIVE === MATERIAL_TYPE.BASIC) {
+		//scene.room.changeRoomMaterial(MATERIAL_TYPE.LAMBERT);
+		scene.painting.changeMaterial(MATERIAL_TYPE.LAMBERT);
+		//scene.sculpture.changeSculptureMaterial(MATERIAL_TYPE.LAMBERT);
+		MATERIAL_TYPE.ACTIVE = MATERIAL_TYPE.LAMBERT;
+		console.log('Turned lightning calculations ON');
+	}
+}
+
 function changeShadowType() {
 	'use strict';
 
-	if (MATERIAL_TYPE > 2) MATERIAL_TYPE = 0;
-	//scene.room.changeRoomMaterial(MATERIAL_TYPE);
-	scene.painting.changeMaterial(MATERIAL_TYPE);
-	//scene.sculpture.changeSculptureMaterial(MATERIAL_TYPE);
-	MATERIAL_TYPE++;
+	if (MATERIAL_TYPE.ACTIVE === MATERIAL_TYPE.LAMBERT) {
+		//scene.room.changeRoomMaterial(MATERIAL_TYPE.PHONG);
+		scene.painting.changeMaterial(MATERIAL_TYPE.PHONG);
+		//scene.sculpture.changeSculptureMaterial(MATERIAL_TYPE.PHONG);
+		MATERIAL_TYPE.ACTIVE = MATERIAL_TYPE.PHONG;
+		console.log('Turned material to PHONG');
+	} else if (MATERIAL_TYPE.ACTIVE === MATERIAL_TYPE.PHONG) {
+		//scene.room.changeRoomMaterial(MATERIAL_TYPE.LAMBERT);
+		scene.painting.changeMaterial(MATERIAL_TYPE.LAMBERT);
+		//scene.sculpture.changeSculptureMaterial(MATERIAL_TYPE.LAMBERT);
+		MATERIAL_TYPE.ACTIVE = MATERIAL_TYPE.LAMBERT;
+		console.log('Turned material to LAMBERT');
+	}
 }
 
 function createScene() {
