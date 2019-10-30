@@ -6,11 +6,15 @@ var offset = 0.4;
 function createIcosahedron(x, y, z) {
 	'use strict';
 
-	var material = new THREE.MeshBasicMaterial({color: 0xff0000, vertexColors: THREE.FaceColors, wireframe: false });
+	var icosahedron = new THREE.Object3D();
+	icosahedron.materials = new Array(3);
+
+	icosahedron.materials[0] = new THREE.MeshBasicMaterial({color: 0xff0000, vertexColors: THREE.FaceColors, wireframe: false });
+	icosahedron.materials[1] = new THREE.MeshLambertMaterial( {color: 0x00ff00, wireframe: false });
+	icosahedron.materials[2] = new THREE.MeshPhongMaterial( {color: 0x00ff00, wireframe: false , shininess: 100});
+
 	var geometry = new THREE.Geometry();
 	//TODO 3 different mesh types and not just 1
-	var mesh,
-		icosahedron = new THREE.Object3D();
 
 	icosahedron.rotating = false;
 
@@ -57,7 +61,7 @@ function createIcosahedron(x, y, z) {
 	for(var i = 0; i < 20; i++)
 		geometry.faces[i].color = new THREE.Color(Math.random() * 0xffffff);
 
-	mesh = new THREE.Mesh(geometry, material);
+	var mesh = new THREE.Mesh(geometry, icosahedron.materials[0]);
 	icosahedron.add(mesh);
 	scene.add(icosahedron);
 
@@ -70,15 +74,16 @@ function createBase(x, y, z) {
 	'use strict';
 
 	var base = new THREE.Object3D();
+	base.materials = new Array(3);
+	base.materials[0] = new THREE.MeshBasicMaterial({color: 0xffffff, wireframe: false });
+	base.materials[1] = new THREE.MeshLambertMaterial( {color: 0xffffff, wireframe: false });
+	base.materials[2] = new THREE.MeshPhongMaterial( {color: 0xffffff, wireframe: false , shininess: 100});
 	var geometry = new THREE.CylinderGeometry(2, 2, 2, 16);
-	var material = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: false });
-	//TODO 3 different mesh types and not just 1
-	var mesh = new THREE.Mesh(geometry, material);
+	var mesh = new THREE.Mesh(geometry, base.materials[0]);
 
 	base.add(mesh);
 	scene.add(base);
 	mesh.position.set(x, y, z);
-	console.log(geometry);
 	return base;
 }
 
