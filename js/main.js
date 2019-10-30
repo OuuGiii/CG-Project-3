@@ -47,6 +47,13 @@ function onKeyPress(e) {
 			break;
 		case 101: //e - TODO: change shadow type
 			break;
+		case 48:
+			scene.traverse(function (node) {
+				if (node instanceof THREE.Mesh) {
+					node.material.wireframe = !node.material.wireframe;
+				}
+			});
+			break;
 		// TODO ADD MATERIAL CHANGE
 		// case 52: //4
 		// 	spotLights.spotLight4.turnTheSwitch();
@@ -86,7 +93,7 @@ function createScene() {
 	'use strict';
 	scene = new THREE.Scene();
 	scene.room = createRoom();
-	scene.sculpture = createIcosahedron(0, 2.5, 0); //2.5 eyeballed, should calculate actual coordinate
+	scene.sculpture = createIcosahedron(0, 4, 0); //2.5 eyeballed, should calculate actual coordinate
 	scene.painting = createPainting(0, 5, -9.45);
 }
 

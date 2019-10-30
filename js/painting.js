@@ -41,7 +41,7 @@ function createFramePart(frame, width, height, depth, x, y, z) {
 	'use strict';
 	var framePart = new THREE.Object3D();
 
-	var material = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true });
+	var material = new THREE.MeshBasicMaterial({ color: 0x845938, wireframe: false });
 	var geometry = new THREE.CubeGeometry(width, height, depth);
 	var mesh = new THREE.Mesh(geometry, material);
 

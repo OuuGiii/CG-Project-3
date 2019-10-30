@@ -3,9 +3,9 @@ function createRoom() {
 
 	var room = new THREE.Object3D();
 
-	room.floor = createFloor(room, 0, 0, 0);
+	room.floor = createFloor(0, 0, 0);
 	room.fence = createFence();
-	room.base = createBase(0, 0, 0);
+	room.base = createBase(0, 1.5, 0);
 
 	room.add(room.floor);
 	room.add(room.fence);
@@ -25,17 +25,17 @@ function createFence() {
 	return fence;
 }
 
-function createFloor(base, x, y, z) {
+function createFloor(x, y, z) {
 	'use strict';
 
 	var floor = new THREE.Object3D();
 
-	var material = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: false });
-	var geometry = new THREE.PlaneGeometry(20, 20);
+	var material = new THREE.MeshBasicMaterial({ color: 0x845938, wireframe: false });
+	var geometry = new THREE.CubeGeometry(0.01, 20, 20);
 	var mesh = new THREE.Mesh(geometry, material);
 
 	mesh.position.set(x, y, z);
-	mesh.rotation.x = Math.PI / 2;
+	mesh.rotation.z = Math.PI / 2;
 
 	floor.add(mesh);
 
@@ -45,7 +45,7 @@ function createFloor(base, x, y, z) {
 function createWall(fence, rotation, x, y, z) {
 	'use strict';
 
-	var material = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: false });
+	var material = new THREE.MeshBasicMaterial({ color: 0x8CD3EE, wireframe: false });
 	var geometry = new THREE.CubeGeometry(1, 10, 20);
 	var mesh = new THREE.Mesh(geometry, material);
 
