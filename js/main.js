@@ -26,6 +26,11 @@ var delta = 0;
 
 function onKeyDown(e) {
 	'use strict';
+	switch (e.keyCode) {
+		case 37:
+			scene.sculpture.rotating = true;
+			break;
+	}
 }
 
 function onKeyPress(e) {
@@ -72,6 +77,11 @@ function onKeyPress(e) {
 
 function onKeyUp(e) {
 	'use strict';
+	switch (e.keyCode) {
+		case 37:
+			scene.sculpture.rotating = false;
+			break;
+	}
 }
 
 // TODO: Add so EVERY CAMERA RESIZES!!!
@@ -93,7 +103,7 @@ function createScene() {
 	'use strict';
 	scene = new THREE.Scene();
 	scene.room = createRoom();
-	scene.sculpture = createIcosahedron(0, 4, 0); //2.5 eyeballed, should calculate actual coordinate
+	scene.sculpture = createIcosahedron(0, 3.5, 0); 
 	scene.painting = createPainting(0, 5, -9.45);
 }
 
@@ -121,7 +131,7 @@ function animate() {
 
 	delta = clock.getDelta();
 	// Under here the parts that should be animated should be added
-
+	sculptureMovement(scene.sculpture);
 	render();
 	requestAnimationFrame(animate);
 }

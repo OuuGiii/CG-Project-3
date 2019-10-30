@@ -5,7 +5,7 @@ function createRoom() {
 
 	room.floor = createFloor(0, 0, 0);
 	room.fence = createFence();
-	room.base = createBase(0, 1.5, 0);
+	room.base = createBase(0, 1, 0);
 
 	room.add(room.floor);
 	room.add(room.fence);
