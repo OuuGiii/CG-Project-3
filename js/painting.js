@@ -170,3 +170,16 @@ function createVerticalPictureLine(picture, pictureLines, x) {
 
 	pictureLines.push(line);
 }
+
+/*painting.changeMaterialBasic = function() {
+		//TODO: change icosaedron material
+	}
+	
+	painting.changeMaterialBasic = function() {
+		//TODO: change icosaedron material
+	}
+	
+	painting.changeMaterialBasic = function() {
+		//TODO: change icosaedron material
+	}
+*/

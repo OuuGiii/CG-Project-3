@@ -24,6 +24,8 @@ var materials = {
 var clock = new THREE.Clock();
 var delta = 0;
 
+//var ind = 0; //indicates the material type
+
 function onKeyDown(e) {
 	'use strict';
 	switch (e.keyCode) {
@@ -49,8 +51,28 @@ function onKeyPress(e) {
 			directionalLight.turnTheSwitch();
 			break;
 		case 119: //w - TODO: activate/deactivate lighting calculation
+			/*if (ind == 0) {
+				scene.room.changeMaterialLambert();
+				scene.painting.changeMaterialLambert();
+				scene.sculpture.changeMaterialLambert();
+				ind = 1;
+			}
+			else {
+				scene.room.changeMaterialBasic();
+				scene.painting.changeMaterialBasic();
+				scene.sculpture.changeMaterialBasic();
+				ind = 0;
+			}*/
 			break;
 		case 101: //e - TODO: change shadow type
+			/*if (ind == 2) {
+				scene.room.changeMaterialLambert();
+				ind = 1;
+			}
+			else if (ind == 1) {
+				scene.room.changeMaterialPhong();
+				ind = 2;
+			}*/
 			break;
 		case 48:
 			scene.traverse(function (node) {
@@ -92,12 +114,6 @@ function onResize() {
 	scene.activeCamera.updateProjectionMatrix();
 }
 
-/*function changeShadowType() {
-	'use strict';
-	scene.room.changeRoomMaterial();
-	scene.painting.changePaintingMaterial();
-	scene.sculpture.changeSculptureMaterial();
-}*/
 
 function createScene() {
 	'use strict';

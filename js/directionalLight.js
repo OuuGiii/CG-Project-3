@@ -8,9 +8,16 @@ function createDirectionalLight(x, y, z) {
     
 
 	directionalLight.turnTheSwitch = function() {
+		'use strict';
 		this.visible = !this.visible;
-		console.log('Turned the ' + this.name + (this.visible == true ? ' ON' : ' OFF'));
+		console.log('Turned the directional light' + (this.visible == true ? ' ON' : ' OFF'));
 	};
+	
+	directionalLight.turnTheShadows = function() {
+		'use strict';
+		this.castShadow = !this.castShadow;
+		console.log('Turned the shadows' + (this.shadows == true ? 'ON' : 'OFF'));
+	}
 
 	scene.add(directionalLight);
 
