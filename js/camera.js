@@ -1,3 +1,5 @@
+var scale = 80;
+
 /*
  * Creating a perspective camera uses the following attributes
  * fov — Camera frustum vertical field of view.
@@ -21,10 +23,10 @@ function createFixedPerspectiveCamera() {
 
 function createFixedOrthographicCamera() {
 	'use strict';
-	let left = window.innerWidth / -80;
-	let right = window.innerWidth / 80;
-	let top = window.innerHeight / 80;
-	let bottom = window.innerHeight / -80;
+	let left = window.innerWidth / -scale;
+	let right = window.innerWidth / scale;
+	let top = window.innerHeight / scale;
+	let bottom = window.innerHeight / -scale;
 	let near = 1;
 	let far = 10;
 

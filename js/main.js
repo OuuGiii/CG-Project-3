@@ -108,11 +108,18 @@ function onKeyUp(e) {
 // TODO: Add so EVERY CAMERA RESIZES!!!
 function onResize() {
 	'use strict';
-	renderer.setSize(window.innerWidth, window.innerHeight);
 	cameras.perspectiveCamera.aspect = window.innerWidth / window.innerHeight;
 	cameras.perspectiveCamera.updateProjectionMatrix();
-	cameras.orthographicCamera.aspect = window.innerWidth / window.innerHeight;
+
+	// notify the renderer of the size change
+	renderer.setSize(window.innerWidth, window.innerHeight);
+	// update the camera
+	cameras.orthographicCamera.left = -window.innerWidth / scale;
+	cameras.orthographicCamera.right = window.innerWidth / scale;
+	cameras.orthographicCamera.top = window.innerHeight / scale;
+	cameras.orthographicCamera.bottom = -window.innerHeight / scale;
 	cameras.orthographicCamera.updateProjectionMatrix();
+  	renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
 function toggleLightingCalculation() {
@@ -167,7 +174,7 @@ function createSpotLights() {
 	spotLights.spotLight2.name = 'spotLight2';
 	spotLights.spotLight3 = createSpotLight(5, 5, 5);
 	spotLights.spotLight3.name = 'spotLight3';
-	spotLights.spotLight4 = createSpotLight(-5, 0, -5);
+	spotLights.spotLight4 = createSpotLight(5, 0, -5);
 	spotLights.spotLight4.name = 'spotLight4';
 
 	spotLights.spotLight1.lookAt(scene.painting);
