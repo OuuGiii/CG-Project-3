@@ -72,6 +72,7 @@ function onKeyPress(e) {
 			break;
 		case 52: //4
 			spotLights.spotLight4.turnTheSwitch();
+			break;
 		case 53: //5
 			scene.activeCamera = cameras.perspectiveCamera;
 			break;
@@ -104,7 +105,7 @@ function onResize() {
 	'use strict';
 	cameras.perspectiveCamera.aspect = window.innerWidth / window.innerHeight;
 	cameras.perspectiveCamera.updateProjectionMatrix();
-	  
+
 	// notify the renderer of the size change
 	renderer.setSize(window.innerWidth, window.innerHeight);
 	// update the camera
@@ -113,7 +114,7 @@ function onResize() {
 	cameras.orthographicCamera.top = window.innerHeight / scale;
 	cameras.orthographicCamera.bottom = -window.innerHeight / scale;
 	cameras.orthographicCamera.updateProjectionMatrix();
-  	renderer.setSize(window.innerWidth, window.innerHeight);
+	renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
 function toggleLightingCalculation() {
@@ -162,16 +163,21 @@ function createScene() {
 
 function createSpotLights() {
 	'use strict';
-	spotLights.spotLight1 = createSpotLight(0, 0, 0);
+	spotLights.spotLight1 = createSpotLight(-3, 10, 0);
 	spotLights.spotLight1.name = 'spotLight1';
-	spotLights.spotLight2 = createSpotLight(10, 10, 10);
-	spotLights.spotLight2.name = 'spotLight2';
-	spotLights.spotLight3 = createSpotLight(5, 5, 5);
-	spotLights.spotLight3.name = 'spotLight3';
-	spotLights.spotLight4 = createSpotLight(5, 0, -5);
-	spotLights.spotLight4.name = 'spotLight4';
+	spotLights.spotLight1.light.target = scene.sculpture;
 
-	spotLights.spotLight1.lookAt(scene.painting);
+	spotLights.spotLight2 = createSpotLight(3, 10, 0);
+	spotLights.spotLight2.name = 'spotLight2';
+	spotLights.spotLight2.light.target = scene.sculpture;
+
+	spotLights.spotLight3 = createSpotLight(-8, 10, 0);
+	spotLights.spotLight3.name = 'spotLight3';
+	spotLights.spotLight3.light.target = scene.painting.frame.left;
+
+	spotLights.spotLight4 = createSpotLight(8, 10, 0);
+	spotLights.spotLight4.name = 'spotLight4';
+	spotLights.spotLight4.light.target = scene.painting.frame.right;
 }
 
 function render() {
