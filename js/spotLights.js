@@ -35,7 +35,7 @@ function createSpotLight(x, y, z) {
 }
 
 function createCone() {
-	var geometry = new THREE.ConeGeometry(0.55, 2, 32);
+	var geometry = new THREE.ConeGeometry(0.5, 2, 32);
 	var material = new THREE.MeshBasicMaterial({ color: 0x000000 });
 	var cone = new THREE.Mesh(geometry, material);
 

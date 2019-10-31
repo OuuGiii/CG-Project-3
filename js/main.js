@@ -48,7 +48,7 @@ function onKeyDown(e) {
 		case 37: //left
 			scene.sculpture.rotating.left = true;
 			break;
-		case 39:  //right
+		case 39: //right
 			scene.sculpture.rotating.right = true;
 			break;
 	}
@@ -100,7 +100,7 @@ function onKeyUp(e) {
 		case 37: //left
 			scene.sculpture.rotating.left = false;
 			break;
-		case 39:  //right
+		case 39: //right
 			scene.sculpture.rotating.right = false;
 			break;
 	}
@@ -169,21 +169,28 @@ function createScene() {
 
 function createSpotLights() {
 	'use strict';
-	spotLights.spotLight1 = createSpotLight(-3, 10, 0);
-	spotLights.spotLight1.name = 'spotLight1';
-	spotLights.spotLight1.light.target = scene.sculpture;
 
-	spotLights.spotLight2 = createSpotLight(3, 10, 0);
+	spotLights.spotLight1 = createSpotLight(-8, 10, 0);
+	spotLights.spotLight1.name = 'spotLight1';
+	spotLights.spotLight1.light.target = scene.painting.frame.left;
+	spotLights.spotLight1.rotation.x = Math.PI / 3;
+	spotLights.spotLight1.rotation.z = Math.PI / 6;
+
+	spotLights.spotLight2 = createSpotLight(-3, 10, 0);
 	spotLights.spotLight2.name = 'spotLight2';
 	spotLights.spotLight2.light.target = scene.sculpture;
+	spotLights.spotLight2.rotation.z = Math.PI / 8;
 
-	spotLights.spotLight3 = createSpotLight(-8, 10, 0);
+	spotLights.spotLight3 = createSpotLight(3, 10, 0);
 	spotLights.spotLight3.name = 'spotLight3';
-	spotLights.spotLight3.light.target = scene.painting.frame.left;
+	spotLights.spotLight3.light.target = scene.sculpture;
+	spotLights.spotLight3.rotation.z = Math.PI / -8;
 
 	spotLights.spotLight4 = createSpotLight(8, 10, 0);
 	spotLights.spotLight4.name = 'spotLight4';
 	spotLights.spotLight4.light.target = scene.painting.frame.right;
+	spotLights.spotLight4.rotation.x = Math.PI / 3;
+	spotLights.spotLight4.rotation.z = Math.PI / -6;
 }
 
 function render() {
