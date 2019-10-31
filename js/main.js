@@ -45,8 +45,11 @@ var delta = 0;
 function onKeyDown(e) {
 	'use strict';
 	switch (e.keyCode) {
-		case 37:
-			scene.sculpture.rotating = true;
+		case 37: //left
+			scene.sculpture.rotating.left = true;
+			break;
+		case 39:  //right
+			scene.sculpture.rotating.right = true;
 			break;
 	}
 }
@@ -94,8 +97,11 @@ function onKeyPress(e) {
 function onKeyUp(e) {
 	'use strict';
 	switch (e.keyCode) {
-		case 37:
-			scene.sculpture.rotating = false;
+		case 37: //left
+			scene.sculpture.rotating.left = false;
+			break;
+		case 39:  //right
+			scene.sculpture.rotating.right = false;
 			break;
 	}
 }
@@ -190,7 +196,7 @@ function animate() {
 
 	delta = clock.getDelta();
 	// Under here the parts that should be animated should be added
-	sculptureMovement(scene.sculpture);
+	sculptureMovement(scene.sculpture, delta);
 	render();
 	requestAnimationFrame(animate);
 }
