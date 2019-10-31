@@ -65,7 +65,10 @@ function createIcosahedron(x, y, z) {
 	for (var i = 0; i < 20; i++) geometry.faces[i].color = new THREE.Color(Math.random() * 0xffffff);
 	geometry.computeFaceNormals();
 	var icosahedron = new THREE.Mesh(geometry, SCULPTURE_MATERIAL.BASIC);
-	icosahedron.rotating = false;
+	icosahedron.rotating = {
+				left: false,
+				right: false
+	};
 	icosahedron.position.set(x, y, z);
 
 	icosahedron.changeMaterial = function(material_type) {
@@ -81,5 +84,6 @@ function createIcosahedron(x, y, z) {
 }
 
 function sculptureMovement(icosahedron) {
-	if (icosahedron.rotating) icosahedron.rotation.y -= 0.1;
+	if (icosahedron.rotating.left) icosahedron.rotation.y -= 0.1;
+	if (icosahedron.rotating.right) icosahedron.rotation.y += 0.1;
 }
