@@ -190,7 +190,7 @@ function animate() {
 
 	delta = clock.getDelta();
 	// Under here the parts that should be animated should be added
-	sculptureMovement(scene.sculpture);
+	sculptureMovement(scene.sculpture, delta);
 	render();
 	requestAnimationFrame(animate);
 }
