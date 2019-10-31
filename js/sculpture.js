@@ -1,38 +1,40 @@
 var phi = (1 + Math.sqrt(5)) / 2;
 var offset = 0.4;
 
+var COLORS = {
+	BROWN: 0x845938,
+	BLACK: 0x000000,
+	WHITE: 0xffffff,
+	GRAY: 0x808080
+};
+
+var SCULPTURE_MATERIAL = {
+	BASIC: new THREE.MeshBasicMaterial({ color: 0xff0000, vertexColors: THREE.FaceColors, wireframe: false }),
+	LAMBERT: new THREE.MeshLambertMaterial({ color: 0x00ff00, wireframe: false }),
+	PHONG: new THREE.MeshPhongMaterial({ color: 0x00ff00, wireframe: false, shininess: 100 })
+};
+
 //TODO set vertices offset to make geometry irregular
 
 function createIcosahedron(x, y, z) {
 	'use strict';
 
-	var icosahedron = new THREE.Object3D();
-	icosahedron.materials = new Array(3);
-
-	icosahedron.materials[0] = new THREE.MeshBasicMaterial({color: 0xff0000, vertexColors: THREE.FaceColors, wireframe: false });
-	icosahedron.materials[1] = new THREE.MeshLambertMaterial( {color: 0x00ff00, wireframe: false });
-	icosahedron.materials[2] = new THREE.MeshPhongMaterial( {color: 0x00ff00, wireframe: false , shininess: 100});
-
 	var geometry = new THREE.Geometry();
-	//TODO 3 different mesh types and not just 1
-
-	icosahedron.rotating = false;
 
 	geometry.vertices.push(
-		new THREE.Vector3(-1,  phi + offset,  0),
-		new THREE.Vector3( 1 + offset,  phi,  0),
-		new THREE.Vector3(-1, -phi,  0 + offset),
-		new THREE.Vector3( 1 + offset, -phi,  0),
-		new THREE.Vector3( 0 + offset, -1,  phi),
-		new THREE.Vector3( 0,  1 + offset,  phi),
-		new THREE.Vector3( 0, -1, -phi + offset),
-		new THREE.Vector3( 0 + offset,  1, -phi),
-		new THREE.Vector3( phi + offset,  0, -1),
-		new THREE.Vector3( phi,  0 + offset,  1),
-		new THREE.Vector3(-phi + offset,  0, -1),
-		new THREE.Vector3(-phi + offset,  0,  1)
+		new THREE.Vector3(-1, phi + offset, 0),
+		new THREE.Vector3(1 + offset, phi, 0),
+		new THREE.Vector3(-1, -phi, 0 + offset),
+		new THREE.Vector3(1 + offset, -phi, 0),
+		new THREE.Vector3(0 + offset, -1, phi),
+		new THREE.Vector3(0, 1 + offset, phi),
+		new THREE.Vector3(0, -1, -phi + offset),
+		new THREE.Vector3(0 + offset, 1, -phi),
+		new THREE.Vector3(phi + offset, 0, -1),
+		new THREE.Vector3(phi, 0 + offset, 1),
+		new THREE.Vector3(-phi + offset, 0, -1),
+		new THREE.Vector3(-phi + offset, 0, 1)
 	);
-
 
 	geometry.faces.push(
 		new THREE.Face3(0, 11, 5),
@@ -58,14 +60,20 @@ function createIcosahedron(x, y, z) {
 	);
 
 	//adds diferent shades (or colors if material color is white) to the figure
-	for(var i = 0; i < 20; i++)
-		geometry.faces[i].color = new THREE.Color(Math.random() * 0xffffff);
+	for (var i = 0; i < 20; i++) geometry.faces[i].color = new THREE.Color(Math.random() * 0xffffff);
 
-	var mesh = new THREE.Mesh(geometry, icosahedron.materials[0]);
-	icosahedron.add(mesh);
-	scene.add(icosahedron);
-
+	var icosahedron = new THREE.Mesh(geometry, SCULPTURE_MATERIAL.BASIC);
+	icosahedron.rotating = false;
 	icosahedron.position.set(x, y, z);
+
+	icosahedron.changeMaterial = function(material_type) {
+		var icosahedron_material = getCorrectMaterial(SCULPTURE_MATERIAL, material_type);
+
+		this.material = icosahedron_material;
+		console.log('Changed icosahedron material');
+	};
+
+	scene.add(icosahedron);
 
 	return icosahedron;
 }
@@ -75,9 +83,9 @@ function createBase(x, y, z) {
 
 	var base = new THREE.Object3D();
 	base.materials = new Array(3);
-	base.materials[0] = new THREE.MeshBasicMaterial({color: 0xffffff, wireframe: false });
-	base.materials[1] = new THREE.MeshLambertMaterial( {color: 0xffffff, wireframe: false });
-	base.materials[2] = new THREE.MeshPhongMaterial( {color: 0xffffff, wireframe: false , shininess: 100});
+	base.materials[0] = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: false });
+	base.materials[1] = new THREE.MeshLambertMaterial({ color: 0xffffff, wireframe: false });
+	base.materials[2] = new THREE.MeshPhongMaterial({ color: 0xffffff, wireframe: false, shininess: 100 });
 	var geometry = new THREE.CylinderGeometry(2, 2, 2, 16);
 	var mesh = new THREE.Mesh(geometry, base.materials[0]);
 
@@ -87,9 +95,8 @@ function createBase(x, y, z) {
 	return base;
 }
 
-function sculptureMovement(icosahedron){
-	if(icosahedron.rotating)
-		icosahedron.rotation.y -= 0.1;
+function sculptureMovement(icosahedron) {
+	if (icosahedron.rotating) icosahedron.rotation.y -= 0.1;
 }
 
 /*
