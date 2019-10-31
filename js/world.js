@@ -39,6 +39,7 @@ function createRoom() {
 	room.add(room.base);
 
 	room.changeMaterial = function(material_type) {
+		'use strict';
 		var floor_material = getCorrectMaterial(ROOM_MATERIAL.FLOOR, material_type);
 		var wall_material = getCorrectMaterial(ROOM_MATERIAL.WALL, material_type);
 		var base_material = getCorrectMaterial(ROOM_MATERIAL.BASE, material_type);

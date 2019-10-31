@@ -40,8 +40,6 @@ var MATERIAL_TYPE = {
 var clock = new THREE.Clock();
 var delta = 0;
 
-//var ind = 0; //indicates the material type
-
 function onKeyDown(e) {
 	'use strict';
 	switch (e.keyCode) {

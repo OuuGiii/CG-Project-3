@@ -41,6 +41,7 @@ function createPainting(x, y, z) {
 	painting.picture = createPicture(painting);
 
 	painting.changeMaterial = function(material_type) {
+		'use strict';
 		var frame_material = getCorrectMaterial(PAINTING_MATERIAL.FRAME, material_type);
 		var background_material = getCorrectMaterial(PAINTING_MATERIAL.PICTURE.BACKGROUND, material_type);
 		var dot_material = getCorrectMaterial(PAINTING_MATERIAL.PICTURE.DOTS, material_type);
@@ -210,6 +211,7 @@ function createVerticalPictureLine(picture, pictureLines, x) {
 }
 
 function getCorrectMaterial(materials, material_index) {
+	'use strict';
 	var correct_material = Object.keys(materials)[material_index];
 	return materials[correct_material];
 }

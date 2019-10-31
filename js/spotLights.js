@@ -17,6 +17,7 @@ function createSpotLight(x, y, z) {
 	spotLight.add(spotLight.cone);
 
 	spotLight.turnTheSwitch = function() {
+		'use strict';
 		this.light.visible = !this.light.visible;
 
 		if (this.light.visible === true) {
@@ -35,6 +36,7 @@ function createSpotLight(x, y, z) {
 }
 
 function createCone() {
+	'use strict';
 	var geometry = new THREE.ConeGeometry(0.5, 2, 32);
 	var material = new THREE.MeshBasicMaterial({ color: 0x000000 });
 	var cone = new THREE.Mesh(geometry, material);
@@ -43,6 +45,7 @@ function createCone() {
 }
 
 function createSphere() {
+	'use strict';
 	var geometry = new THREE.SphereGeometry(0.5, 32, 32);
 	var material = new THREE.MeshBasicMaterial({ color: LIGHT_COLORS.ON });
 	var sphere = new THREE.Mesh(geometry, material);
@@ -52,6 +55,7 @@ function createSphere() {
 }
 
 function createLight() {
+	'use strict';
 	var light = new THREE.SpotLight(0xffffff, 1.0, 300, 0.8, 0.1, 2);
 
 	light.castShadow = true;

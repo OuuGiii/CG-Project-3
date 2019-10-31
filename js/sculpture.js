@@ -66,14 +66,14 @@ function createIcosahedron(x, y, z) {
 	geometry.computeFaceNormals();
 	var icosahedron = new THREE.Mesh(geometry, SCULPTURE_MATERIAL.BASIC);
 	icosahedron.rotating = {
-				left: false,
-				right: false
+		left: false,
+		right: false
 	};
 	icosahedron.position.set(x, y, z);
 
 	icosahedron.changeMaterial = function(material_type) {
+		'use strict';
 		var icosahedron_material = getCorrectMaterial(SCULPTURE_MATERIAL, material_type);
-
 		this.material = icosahedron_material;
 		console.log('Changed icosahedron material');
 	};
@@ -84,6 +84,7 @@ function createIcosahedron(x, y, z) {
 }
 
 function sculptureMovement(icosahedron) {
+	'use strict';
 	if (icosahedron.rotating.left) icosahedron.rotation.y -= 0.1;
 	if (icosahedron.rotating.right) icosahedron.rotation.y += 0.1;
 }
