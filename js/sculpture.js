@@ -5,13 +5,15 @@ var COLORS = {
 	BROWN: 0x845938,
 	BLACK: 0x000000,
 	WHITE: 0xffffff,
-	GRAY: 0x808080
+	GRAY: 0x808080,
+	RED: 0xff0000,
+	GREEN: 0x00ff00
 };
 
 var SCULPTURE_MATERIAL = {
-	BASIC: new THREE.MeshBasicMaterial({ color: 0xff0000, vertexColors: THREE.FaceColors, wireframe: false }),
-	LAMBERT: new THREE.MeshLambertMaterial({ color: 0x00ff00, wireframe: false }),
-	PHONG: new THREE.MeshPhongMaterial({ color: 0x00ff00, wireframe: false, shininess: 100 })
+	BASIC: new THREE.MeshBasicMaterial({ color: COLORS.RED, vertexColors: THREE.FaceColors, wireframe: false }),
+	LAMBERT: new THREE.MeshLambertMaterial({ color: COLORS.GREEN, wireframe: false }),
+	PHONG: new THREE.MeshPhongMaterial({ color: COLORS.GREEN, wireframe: false, shininess: 100 })
 };
 
 //TODO set vertices offset to make geometry irregular
@@ -78,37 +80,6 @@ function createIcosahedron(x, y, z) {
 	return icosahedron;
 }
 
-function createBase(x, y, z) {
-	'use strict';
-
-	var base = new THREE.Object3D();
-	base.materials = new Array(3);
-	base.materials[0] = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: false });
-	base.materials[1] = new THREE.MeshLambertMaterial({ color: 0xffffff, wireframe: false });
-	base.materials[2] = new THREE.MeshPhongMaterial({ color: 0xffffff, wireframe: false, shininess: 100 });
-	var geometry = new THREE.CylinderGeometry(2, 2, 2, 16);
-	var mesh = new THREE.Mesh(geometry, base.materials[0]);
-
-	base.add(mesh);
-	scene.add(base);
-	mesh.position.set(x, y, z);
-	return base;
-}
-
 function sculptureMovement(icosahedron) {
 	if (icosahedron.rotating) icosahedron.rotation.y -= 0.1;
 }
-
-/*
-icosahedron.changeMaterialBasic = function() {
-	//TODO: change icosaedron material
-}
-
-icosahedron.changeMaterialLambert = function() {
-	//TODO: change icosaedron material
-}
-
-icosahedron.changeMaterialPhong = function() {
-	//TODO: change icosaedron material
-}
-*/

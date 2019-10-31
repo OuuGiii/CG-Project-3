@@ -111,13 +111,13 @@ function toggleLightingCalculation() {
 	'use strict';
 
 	if (MATERIAL_TYPE.ACTIVE === MATERIAL_TYPE.LAMBERT || MATERIAL_TYPE.ACTIVE === MATERIAL_TYPE.PHONG) {
-		//scene.room.changeRoomMaterial(MATERIAL_TYPE.BASIC);
+		scene.room.changeMaterial(MATERIAL_TYPE.BASIC);
 		scene.painting.changeMaterial(MATERIAL_TYPE.BASIC);
 		scene.sculpture.changeMaterial(MATERIAL_TYPE.BASIC);
 		MATERIAL_TYPE.ACTIVE = MATERIAL_TYPE.BASIC;
 		console.log('Turned lightning calculations OFF');
 	} else if (MATERIAL_TYPE.ACTIVE === MATERIAL_TYPE.BASIC) {
-		//scene.room.changeRoomMaterial(MATERIAL_TYPE.LAMBERT);
+		scene.room.changeMaterial(MATERIAL_TYPE.LAMBERT);
 		scene.painting.changeMaterial(MATERIAL_TYPE.LAMBERT);
 		scene.sculpture.changeMaterial(MATERIAL_TYPE.LAMBERT);
 		MATERIAL_TYPE.ACTIVE = MATERIAL_TYPE.LAMBERT;
@@ -129,13 +129,13 @@ function changeShadowType() {
 	'use strict';
 
 	if (MATERIAL_TYPE.ACTIVE === MATERIAL_TYPE.LAMBERT) {
-		//scene.room.changeRoomMaterial(MATERIAL_TYPE.PHONG);
+		scene.room.changeMaterial(MATERIAL_TYPE.PHONG);
 		scene.painting.changeMaterial(MATERIAL_TYPE.PHONG);
 		scene.sculpture.changeMaterial(MATERIAL_TYPE.PHONG);
 		MATERIAL_TYPE.ACTIVE = MATERIAL_TYPE.PHONG;
 		console.log('Turned material to PHONG');
 	} else if (MATERIAL_TYPE.ACTIVE === MATERIAL_TYPE.PHONG) {
-		//scene.room.changeRoomMaterial(MATERIAL_TYPE.LAMBERT);
+		scene.room.changeMaterial(MATERIAL_TYPE.LAMBERT);
 		scene.painting.changeMaterial(MATERIAL_TYPE.LAMBERT);
 		scene.sculpture.changeMaterial(MATERIAL_TYPE.LAMBERT);
 		MATERIAL_TYPE.ACTIVE = MATERIAL_TYPE.LAMBERT;
