@@ -12,8 +12,8 @@ var COLORS = {
 
 var SCULPTURE_MATERIAL = {
 	BASIC: new THREE.MeshBasicMaterial({ color: COLORS.RED, vertexColors: THREE.FaceColors, wireframe: false }),
-	LAMBERT: new THREE.MeshLambertMaterial({ color: COLORS.GREEN, wireframe: false }),
-	PHONG: new THREE.MeshPhongMaterial({ color: COLORS.GREEN, wireframe: false, shininess: 100 })
+	LAMBERT: new THREE.MeshLambertMaterial({ color: COLORS.RED, wireframe: false }),
+	PHONG: new THREE.MeshPhongMaterial({ color: COLORS.RED, wireframe: false, shininess: 100 })
 };
 
 //TODO set vertices offset to make geometry irregular
@@ -63,7 +63,7 @@ function createIcosahedron(x, y, z) {
 
 	//adds diferent shades (or colors if material color is white) to the figure
 	for (var i = 0; i < 20; i++) geometry.faces[i].color = new THREE.Color(Math.random() * 0xffffff);
-
+	geometry.computeFaceNormals();
 	var icosahedron = new THREE.Mesh(geometry, SCULPTURE_MATERIAL.BASIC);
 	icosahedron.rotating = false;
 	icosahedron.position.set(x, y, z);
